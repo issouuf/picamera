@@ -3,8 +3,8 @@ from cv2 import aruco
 import numpy as np
 import socket
 
-HOST ="ip de l'esp32"
-PORT = "port de l'esp32"
+HOST ="192.168.1.25"
+PORT = "8888"
 
 marker_dict = aruco.Dictionary_get(aruco.DICT_4X4_50)
 param_markers = aruco.DetectorParameters_create()
@@ -39,6 +39,7 @@ while True:
             #    print("ID 21 lu")
             #message = input("Envoyer à l'ESP32 : ")
             message = ids 
+            # Envoyer des données à l'ESP32
             s.sendall(message.encode('utf-8'))
 
         # Recevez des données de l'ESP32
