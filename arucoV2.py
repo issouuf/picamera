@@ -4,10 +4,12 @@ import numpy as np
 import socket
 
 HOST ="192.168.1.25"
-PORT = "8888"
+PORT = 8888
 
-marker_dict = aruco.Dictionary_get(aruco.DICT_4X4_50)
-param_markers = aruco.DetectorParameters_create()
+#marker_dict = aruco.Dictionary_get(aruco.DICT_4X4_50)
+marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
+#param_markers = aruco.DetectorParameters_create()
+param_markers = aruco.DetectorParameters()
 
 cap = cv.VideoCapture(0)
 
