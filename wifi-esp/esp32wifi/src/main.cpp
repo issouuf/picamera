@@ -42,6 +42,9 @@ void loop() {
         String command = client.readStringUntil('\n');
         Serial.print("Commande reçue: ");
         Serial.println(command);
+        if (command == "1" ){
+          Serial.println("OK");
+        }
 
         // Traitez la commande ici
         // Par exemple, vous pouvez renvoyer une réponse au client
