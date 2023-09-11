@@ -1,8 +1,8 @@
 #include <WiFi.h>
 #include <WiFiClient.h>
 
-const char* ssid = "votre_SSID"; // Remplacez par le nom de votre réseau Wi-Fi
-const char* password = "votre_mot_de_passe"; // Remplacez par le mot de passe de votre réseau Wi-Fi
+const char* ssid = "Freebox-49A6CF"; // Remplacez par le nom de votre réseau Wi-Fi
+const char* password = "italici2.-ejurat-adsertivum7-clematidas!"; // Remplacez par le mot de passe de votre réseau Wi-Fi
 const int port = 8888; // Port pour la communication
 
 WiFiServer server(port);
