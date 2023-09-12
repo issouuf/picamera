@@ -1,4 +1,5 @@
 import cv2
+import cv2.aruco
 
 vid = cv2.VideoCapture(0)
 
