@@ -1,7 +1,7 @@
 import socket
 import time
 
-HOST = "192.168.1.25"  # Adresse IP de l'ESP32
+HOST = "192.168.1.93"  # Adresse IP de l'ESP32
 PORT = 8888  # Port utilisé pour la communication
 
 connected = False  # Indicateur de connexion

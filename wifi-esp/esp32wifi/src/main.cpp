@@ -30,12 +30,14 @@ void setup() {
   // Démarrez le serveur
   server.begin();
 }
-
 void loop() {
   WiFiClient client = server.available();
 
+  String clientconnected = client.remoteIP().toString();
+
   if (client) {
     Serial.println("Nouvelle connexion");
+    Serial.println(client.remoteIP().toString());
 
     while (client.connected()) {
       if (client.available()) {
