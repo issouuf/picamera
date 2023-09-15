@@ -1,7 +1,7 @@
 import cv2
 import cv2.aruco
 
-vid = cv2.VideoCapture(0)
+vid = cv2.VideoCapture(1)
 
 while(True):
     ret, frame = vid.read()

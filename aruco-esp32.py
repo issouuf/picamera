@@ -18,17 +18,13 @@ while not connected:
     except ConnectionRefusedError:
         print("En attente de la connexion à l'ESP32...")
         time.sleep(1)  # Attendre 1 seconde avant de réessayer
-
-print("Connecté à l'ESP32. Le programme peut commencer.")
+    
+    
+if connected == True: 
+    print("Connecté à l'ESP32. Le programme peut commencer.")
 
 marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
 param_markers = aruco.DetectorParameters()
-
-# Supposons que vous ayez calibré votre caméra et obtenu les matrices de calibration suivantes
-#cameraMatrix = np.array([[fx, 0, cx],
-                       #  [0, fy, cy],
-                       #  [0, 0, 1]], dtype=np.float32)  # Remplacez fx, fy, cx, cy par les valeurs de votre calibration
-#distCoeffs = np.array([k1, k2, p1, p2, k3], dtype=np.float32)  # Remplacez par les valeurs de votre calibration
 
 cap = cv.VideoCapture(1)
 
@@ -49,17 +45,17 @@ while True:
             cv.putText(frame, f"id: {ids[0]}", tuple(top_right), font, 1, (0, 255, 0), 2, cv.LINE_AA)
 
             # Estimez la pose du marqueur
-            rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(corners, 0.1, cameraMatrix, distCoeffs)
+            rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(corners, 0.1, None, None)
 
             if rvecs is not None and tvecs is not None:
                 rvec = rvecs[0]  # Prenez le premier marqueur
                 tvec = tvecs[0]
 
-                # Convertissez les coordonnées du marqueur en position 3D
-                marker_position_camera = -np.dot(np.linalg.inv(rvec), tvec)
+                # Les valeurs de rvec et tvec ne sont pas en unités spécifiques sans calibration
+                # Vous pouvez les envoyer telles quelles à l'ESP32 pour des opérations relatives
 
-                # Envoyez les coordonnées de la position à l'ESP32
-                position_message = f"Position (x, y, z): ({marker_position_camera[0]}, {marker_position_camera[1]}, {marker_position_camera[2]})"
+                # Envoyez les valeurs à l'ESP32
+                position_message = f"rvec: {rvec}, tvec: {tvec}"
                 s.sendall(position_message.encode('utf-8'))
 
     cv.imshow("frame", frame)
