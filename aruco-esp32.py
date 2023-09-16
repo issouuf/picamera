@@ -24,7 +24,8 @@ if connected == True:
     print("Connecté à l'ESP32. Le programme peut commencer.")
 
 marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
-param_markers = aruco.DetectorParameters()
+#param_markers = aruco.DetectorParameters() //sur le pc portable
+param_markers = aruco.DetectorParameters_create() # sur la tour 
 
 cap = cv.VideoCapture(1)
 
