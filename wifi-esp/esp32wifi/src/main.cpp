@@ -1,8 +1,8 @@
 #include <WiFi.h>
 #include <WiFiClient.h>
 
-const char* ssid = "CRAC_5GHz"; // Remplacez par le nom de votre réseau Wi-Fi
-const char* password = "GuinandLeCrac"; // Remplacez par le mot de passe de votre réseau Wi-Fi
+const char* ssid = "Freebox-49A6CF"; // Remplacez par le nom de votre réseau Wi-Fi
+const char* password = "italici2.-ejurat-adsertivum7-clematidas!"; // Remplacez par le mot de passe de votre réseau Wi-Fi
 const int port = 8888; // Port pour la communication
 
 WiFiServer server(port);
@@ -30,12 +30,14 @@ void setup() {
   // Démarrez le serveur
   server.begin();
 }
-
 void loop() {
   WiFiClient client = server.available();
 
+  String clientconnected = client.remoteIP().toString();
+
   if (client) {
     Serial.println("Nouvelle connexion");
+    Serial.println(client.remoteIP().toString());
 
     while (client.connected()) {
       if (client.available()) {

@@ -3,21 +3,8 @@ from cv2 import aruco
 import numpy as np
 import socket
 
-HOST ="192.168.1.11"
+HOST ="192.168.1.25"
 PORT = 8888
-
-
-
-# Créez une socket
-try:
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    # Connectez-vous à l'ESP32
-        s.connect((HOST, PORT))
-except:
-    print("Erreur de connexion au serveur")
-    exit(1)
-
-
 
 #marker_dict = aruco.Dictionary_get(aruco.DICT_4X4_50)
 marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
@@ -26,6 +13,10 @@ param_markers = aruco.DetectorParameters()
 
 cap = cv.VideoCapture(0)
 
+# Créez une socket
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    # Connectez-vous à l'ESP32
+    s.connect((HOST, PORT))
 
 while True:
     ret,frame = cap.read()
@@ -48,11 +39,10 @@ while True:
              #   print("ID 20 lu")
             #elif ids == 21:
             #    print("ID 21 lu")
-            message = input("Envoyer à l'ESP32 : ")
+            #message = input("Envoyer à l'ESP32 : ")
+            message = ids 
+            # Envoyer des données à l'ESP32
             s.sendall(message.encode('utf-8'))
-            #if ids ==21:
-          #      message = "1"
-           #     s.sendall(message.encode('utf-8'))
 
         # Recevez des données de l'ESP32
             data = s.recv(1024).decode('utf-8')
