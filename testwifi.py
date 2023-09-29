@@ -1,7 +1,7 @@
 import socket
 
 # Paramètres du serveur
-HOST = "192.168.1.25"
+HOST = "192.168.1.11"
 PORT = 8888
 
 # Créez une socket
