@@ -1,34 +1,16 @@
 import cv2 as cv
 from cv2 import aruco
 import numpy as np
-import socket
 
-HOST = "192.168.1.93"
-PORT = 8888
 
-connected = False
-
-while not connected:
-    try:
-        # Créez une socket
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            # Connectez-vous à l'ESP32
-            s.connect((HOST, PORT))
-            connected = True
-    except ConnectionRefusedError:
-        print("En attente de la connexion à l'ESP32...")
-        time.sleep(1)  # Attendre 1 seconde avant de réessayer
-
-print("Connecté à l'ESP32. Le programme peut commencer.")
 
 marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
 param_markers = aruco.DetectorParameters()
 
-# Supposons que vous ayez calibré votre caméra et obtenu les matrices de calibration suivantes
-#cameraMatrix = np.array([[fx, 0, cx],
-                       #  [0, fy, cy],
-                       #  [0, 0, 1]], dtype=np.float32)  # Remplacez fx, fy, cx, cy par les valeurs de votre calibration
-#distCoeffs = np.array([k1, k2, p1, p2, k3], dtype=np.float32)  # Remplacez par les valeurs de votre calibration
+camera_matrix = np.array([[275.48494487, 0, 307.36023929],
+                         [0, 274.19034322, 248.29371074],
+                         [0, 0, 1]])  
+dist_coeffs = np.array([-0.32576806, 0.13293918, 0.00102543, -0.00083957, -0.02834439])
 
 cap = cv.VideoCapture(1)
 
@@ -49,7 +31,7 @@ while True:
             cv.putText(frame, f"id: {ids[0]}", tuple(top_right), font, 1, (0, 255, 0), 2, cv.LINE_AA)
 
             # Estimez la pose du marqueur
-            rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(corners, 0.1, cameraMatrix, distCoeffs)
+            rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(corners, 0.1, camera_matrix, dist_coeffs)
 
             if rvecs is not None and tvecs is not None:
                 rvec = rvecs[0]  # Prenez le premier marqueur
@@ -60,7 +42,7 @@ while True:
 
                 # Envoyez les coordonnées de la position à l'ESP32
                 position_message = f"Position (x, y, z): ({marker_position_camera[0]}, {marker_position_camera[1]}, {marker_position_camera[2]})"
-                s.sendall(position_message.encode('utf-8'))
+                print(position_message)
 
     cv.imshow("frame", frame)
     stop = cv.waitKey(1)

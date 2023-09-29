@@ -3,20 +3,16 @@ from cv2 import aruco
 import numpy as np
 import socket
 
-HOST ="192.168.1.93"
-PORT = 8888
+
+
 
 #marker_dict = aruco.Dictionary_get(aruco.DICT_4X4_50)
 marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
 param_markers = aruco.DetectorParameters_create() # sur la tour
 #param_markers = aruco.DetectorParameters() #sur le pc portable
 
-cap = cv.VideoCapture(1)
+cap = cv.VideoCapture(0)
 
-# Créez une socket
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    # Connectez-vous à l'ESP32
-   s.connect((HOST, PORT))
 
 while True:
     ret,frame = cap.read()
@@ -30,27 +26,33 @@ while True:
             #print (ids)
             corners = corners.reshape(4,2)
             corners = corners.astype(int)
-            top_right = corners[0].ravel()
+            #top_right = corners[0].ravel()
+            (topLeft, topRight, bottomRight, bottomLeft) = corners
+            topRight = (int(topRight[0]), int(topRight[1]))
+            bottomRight = (int(bottomRight[0]), int(bottomRight[1]))
+            topLeft = (int(topLeft[0]), int(topLeft[1]))
+            bottomLeft = (int(bottomLeft[0]), int(bottomLeft[1]))
+
+            # contour du tag 
+            cv.line(frame, topLeft, topRight, (0, 255, 0), 2)
+            cv.line(frame, topRight, bottomRight, (0, 255, 0), 2)
+            cv.line(frame, bottomRight, bottomLeft, (0, 255, 0), 2)
+            cv.line(frame, bottomLeft, topLeft, (0, 255, 0), 2)
+
+            cx = int((topLeft[0] + bottomRight[0]) / 2.0)
+            cy = int((topLeft[1] + bottomRight[1]) / 2.0)
+            cv.circle(frame, (cx, cy), 4, (0, 0, 255), -1)
             
-            font = cv.FONT_HERSHEY_PLAIN
+            #affichage de la détection sur l'image
+            cv.putText(frame,str(marker_IDs),(topLeft[0],topLeft[1]-15),cv.FONT_HERSHEY_SIMPLEX,0.5,(0,255,0),2)
+
+
+
+            
+            #font = cv.FONT_HERSHEY_PLAIN
             #print(top_right, 'id = ',ids)
-            cv.putText(frame,f"id: {ids[0]}",tuple(top_right),font,1, (0,255,0),2,cv.LINE_AA)
-            #if ids ==20:
-             #   print("ID 20 lu")
-            #elif ids == 21:
-            #    print("ID 21 lu")
-            #message = input("Envoyer à l'ESP32 : ")
+            #cv.putText(frame,f"id: {ids[0]}",tuple(top_right),font,1, (0,255,0),2,cv.LINE_AA)
 
-            print(str(ids[0]))
-
-
-            # Envoyer des données à l'ESP32
-            #s.sendall(message.encode('utf-8'))   
-            #s.sendall(str(ids).encode('utf-8'))
-
-        # Recevez des données de l'ESP32
-            #data = s.recv(1024).decode('utf-8')
-            #print(f"Reçu de l'ESP32 : {data}")
 
 
 
