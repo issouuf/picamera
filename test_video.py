@@ -2,12 +2,12 @@ import cv2
 import cv2.aruco
 import time 
 
-vid = cv2.VideoCapture(0)
+vid = cv2.VideoCapture(1)
 
     #vid.set(3,2028)
     #vid.set(4,1080)
-vid.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-vid.set(cv2.CAP_PROP_FRAME_HEIGHT, 1520)
+#vid.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+#vid.set(cv2.CAP_PROP_FRAME_HEIGHT, 1520)
 
 
 while(True):
