@@ -65,7 +65,7 @@ while True:
             object_width =(w / pixel_to_centimeters) 
             object_height = (h / pixel_to_centimeters - 2)  #-2 pour la caméra du téléphone samsung 
             print(object_width, object_height)
-            cv.putText(frame, f"ID: {ids[0]}, Size: {marker_size:.2f}, Cm: {object_height:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
+            cv.putText(frame, f"ID: {ids[0]}, Cm: {object_height:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
             
 
 
