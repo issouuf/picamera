@@ -47,14 +47,29 @@ while True:
                 for i in range(len(marker_centers) - 1):
                     cv.line(frame, marker_centers[i], marker_centers[i + 1], (0, 0, 255), 2)
 
-            
             # Calculate and display the size of the marker
             marker_size = np.linalg.norm(topRight - topLeft)
             font = cv.FONT_HERSHEY_PLAIN
             #print(top_right, 'id = ',ids)
             #print(round(marker_size))
-            cv.putText(frame, f"ID: {ids[0]}, Size: {marker_size:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
+            #cv.putText(frame, f"ID: {ids[0]}, Size: {marker_size:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
+            
 
+            # taille approximative du tag en cm
+            aruco_perimeters = cv.arcLength(corners, True)
+            pixel_to_centimeters = aruco_perimeters / 60
+
+            rect = cv.minAreaRect(corners)
+            (x, y), (w, h), angle = rect
+
+            object_width =(w / pixel_to_centimeters) 
+            object_height = (h / pixel_to_centimeters - 2)  #-2 pour la caméra du téléphone samsung 
+            print(object_width, object_height)
+            cv.putText(frame, f"ID: {ids[0]}, Size: {marker_size:.2f}, Cm: {object_height:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
+            
+
+
+            
     cv.imshow("frame", frame)
     stop = cv.waitKey(1)
     if stop == ord("s"):
