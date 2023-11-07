@@ -3,6 +3,7 @@ from cv2 import aruco
 import numpy as np
 import socket
 
+
 camera_matrix = np.array([[275.48494487, 0, 307.36023929],
                          [0, 274.19034322, 248.29371074],
                          [0, 0, 1]])  
@@ -14,9 +15,11 @@ param_markers = aruco.DetectorParameters_create()
 cap = cv.VideoCapture(1)
 
 while True:
-    ret, frame = cap.read()
-    if not ret:
-        break
+    #ret, frame = cap.read()
+    frame = cv.imread('Capture.PNG')
+    
+    #if not ret:
+     #   break
 
     corrected_frame = cv.undistort(frame, camera_matrix, dist_coeffs)
     gray_frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
