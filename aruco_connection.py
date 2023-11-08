@@ -16,8 +16,7 @@ cap = cv.VideoCapture(1)
 
 while True:
     #ret, frame = cap.read()
-    frame = cv.imread('Capture.PNG')
-    
+    frame = cv.imread('table_jeu.png')
     #if not ret:
      #   break
 
