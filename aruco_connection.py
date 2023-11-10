@@ -2,7 +2,7 @@ import cv2 as cv
 from cv2 import aruco
 import numpy as np
 import socket
-
+from picamera2 import Picamera2
 
 camera_matrix = np.array([[275.48494487, 0, 307.36023929],
                          [0, 274.19034322, 248.29371074],
@@ -10,13 +10,28 @@ camera_matrix = np.array([[275.48494487, 0, 307.36023929],
 dist_coeffs = np.array([-0.32576806, 0.13293918, 0.00102543, -0.00083957, -0.02834439])
 
 marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
-param_markers = aruco.DetectorParameters_create()
+#param_markers = aruco.DetectorParameters_create() #sur la tour et le raspberry pi
+param_markers = aruco.DetectorParameters() #sur le pc portable
 
-cap = cv.VideoCapture(1)
+
+maxh=2028
+maxl=1520
+midh=2028
+midl=1080
+minl=1332
+minh=990
+
+picam2 = Picamera2()
+picam2.configure(picam.create_preview_configuration(main={"format": 'XRGB8888',"size":(maxh,maxl)}))
+picam2.start()
+
+
+#cap = cv.VideoCapture(1)
 
 while True:
     #ret, frame = cap.read()
-    frame = cv.imread('table_jeu.png')
+    #frame = cv.imread('table_jeu.png')
+    frame = picam2.capture_array()
     #if not ret:
      #   break
 
