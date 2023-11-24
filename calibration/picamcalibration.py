@@ -3,7 +3,7 @@ import time
 import sys
 import argparse
 import os
-from picamera2 import PiCamera2
+from picamera2 import Picamera2 
 
 def save_snaps(width=0, height=0, name="snapshot", folder=".", raspi=False):
     if raspi:

@@ -4,10 +4,18 @@ import numpy as np
 import socket
 from picamera2 import Picamera2
 
-camera_matrix = np.array([[275.48494487, 0, 307.36023929],
-                         [0, 274.19034322, 248.29371074],
-                         [0, 0, 1]])  
-dist_coeffs = np.array([-0.32576806, 0.13293918, 0.00102543, -0.00083957, -0.02834439])
+matrix2kcam = np.array([[878.95170188, 0, 993.89589179],
+                        [0           ,876.72068118, 775.53981922],
+                        [0           ,0           ,1           ]])
+coeff2kcam = np.array([[-0.29467958 , 0.08874286 , 0.00187015, -0.00062744, -0.01134761]])
+
+
+#camera_matrix = np.array([[275.48494487, 0, 307.36023929],
+#                         [0, 274.19034322, 248.29371074],
+#                         [0, 0, 1]])  
+#dist_coeffs = np.array([-0.32576806, 0.13293918, 0.00102543, -0.00083957, -0.02834439])
+camera_matrix = matrix2kcam
+dist_coeffs = coeff2kcam
 
 marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
 #param_markers = aruco.DetectorParameters_create() #sur la tour et le raspberry pi
@@ -96,6 +104,8 @@ while True:
 
 cap.release()
 cv.destroyAllWindows()
+
+
 
 
 
