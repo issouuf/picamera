@@ -57,10 +57,10 @@ while True:
             topLeft, topRight, bottomRight, bottomLeft = corners
 
 
-            cv.line(frame, topLeft, topRight, (0, 255, 0), 2)
-            cv.line(frame, topRight, bottomRight, (0, 255, 0), 2)
-            cv.line(frame, bottomRight, bottomLeft, (0, 255, 0), 2)
-            cv.line(frame, bottomLeft, topLeft, (0, 255, 0), 2)
+            cv.line(corrected_frame, topLeft, topRight, (0, 255, 0), 2)
+            cv.line(corrected_frame, topRight, bottomRight, (0, 255, 0), 2)
+            cv.line(corrected_frame, bottomRight, bottomLeft, (0, 255, 0), 2)
+            cv.line(corrected_frame, bottomLeft, topLeft, (0, 255, 0), 2)
 
             cx = int((topLeft[0] + bottomRight[0]) / 2.0)
             cy = int((topLeft[1] + bottomRight[1]) / 2.0)
@@ -70,7 +70,7 @@ while True:
 
             if len(marker_centers) > 1:
                 for i in range(len(marker_centers) - 1):
-                    cv.line(frame, marker_centers[i], marker_centers[i + 1], (0, 0, 255), 2)
+                    cv.line(corrected_frame, marker_centers[i], marker_centers[i + 1], (0, 0, 255), 2)
 
             # Calculate and display the size of the marker
             marker_size = np.linalg.norm(topRight - topLeft)
@@ -92,17 +92,18 @@ while True:
             object_height = (h / pixel_to_centimeters)
             taille_cm = ((object_height + object_width) / 2)  
             print(object_width, object_height)
-            cv.putText(frame, f"ID: {ids[0]}, Cm: {taille_cm:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
+            cv.putText(corrected_frame, f"ID: {ids[0]}, Cm: {taille_cm:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
             
 
 
             
-    cv.imshow("frame", frame)
+    cv.imshow("frame", corrected_frame)
     stop = cv.waitKey(1)
     if stop == ord("s"):
         break
 
-cap.release()
+#cap.release()
+picam2.stop()
 cv.destroyAllWindows()
 
 
