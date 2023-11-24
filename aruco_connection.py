@@ -50,7 +50,7 @@ while True:
     if marker_corners:
         marker_centers = []
         for ids, corners in zip(marker_IDs, marker_corners):
-            cv.polylines(corrected_frame, [corners.astype(np.int32)], True, (0, 255, 255), 4, cv.LINE_AA)
+            #cv.polylines(corrected_frame, [corners.astype(np.int32)], True, (0, 255, 255), 4, cv.LINE_AA)
             corners = corners.reshape(4, 2)
             corners = corners.astype(int)
             topLeft, topRight, bottomRight, bottomLeft = corners
