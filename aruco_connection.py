@@ -42,7 +42,6 @@ while True:
     frame = picam2.capture_array()
     #if not ret:
      #   break
-    resized_frame = cv.resize(frame, 680,440)
     corrected_frame = cv.undistort(frame, camera_matrix, dist_coeffs)
     gray_frame = cv.cvtColor(corrected_frame, cv.COLOR_BGR2GRAY)
     
@@ -98,7 +97,7 @@ while True:
 
 
             
-    cv.imshow("frame", resized_frame)
+    cv.imshow("frame", corrected_frame)
     stop = cv.waitKey(1)
     if stop == ord("s"):
         break
