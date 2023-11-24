@@ -44,7 +44,7 @@ while True:
      #   break
 
     corrected_frame = cv.undistort(frame, camera_matrix, dist_coeffs)
-    gray_frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    gray_frame = cv.cvtColor(corrected_frame, cv.COLOR_BGR2GRAY)
     
     marker_corners, marker_IDs, reject = aruco.detectMarkers(gray_frame, marker_dict, parameters=param_markers)
     
