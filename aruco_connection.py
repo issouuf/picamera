@@ -30,7 +30,7 @@ minl=1332
 minh=990
 
 picam2 = Picamera2()
-picam2.configure(picam.create_preview_configuration(main={"format": 'XRGB8888',"size":(maxh,maxl)}))
+picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888',"size":(maxh,maxl)}))
 picam2.start()
 
 
