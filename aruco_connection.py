@@ -92,6 +92,14 @@ while True:
             taille_cm = ((object_height + object_width) / 2)  
             #print(object_width, object_height)
             #cv.putText(corrected_frame, f"ID: {ids[0]}, Cm: {taille_cm:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
+
+
+            rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 1, camera_matrix, dist_coeffs)
+            aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 1)
+            
+            
+
+
             cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
             print("centre tag 2D: ",marker_centers)
 
