@@ -71,9 +71,11 @@ while True:
             if len(marker_centers) > 1:
                 for i in range(len(marker_centers) - 1):
                     cv.line(corrected_frame, marker_centers[i], marker_centers[i + 1], (0, 0, 255), 2)
+                    rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 6, camera_matrix, dist_coeffs)
+                    aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 1)
                     try:
-                        rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 6, camera_matrix, dist_coeffs)
-                        aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 1)
+                        #rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 6, camera_matrix, dist_coeffs)
+                        #aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 1)
                         cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2,
                                    cv.LINE_AA)
                         print("Pose estimation successful")
