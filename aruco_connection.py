@@ -84,15 +84,12 @@ while True:
 
 
                 # Calculate and display the size of the marker
-                marker_size = np.linalg.norm(topRight - topLeft)
-                font = cv.FONT_HERSHEY_PLAIN
+               # marker_size = np.linalg.norm(topRight - topLeft)   
             #print(top_right, 'id = ',ids)
             #print(round(marker_size))
             #cv.putText(frame, f"ID: {ids[0]}, Size: {marker_size:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
             
-
-
-
+            font = cv.FONT_HERSHEY_PLAIN
             cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
             #print("centre tag 2D: ",marker_centers)
             
