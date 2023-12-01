@@ -80,7 +80,6 @@ while True:
                         print("Pose estimation successful")
                     except Exception as e:
                         print(f"Pose estimation error: {e}")
-                print(rvec, tvec)
 
 
                 # Calculate and display the size of the marker
