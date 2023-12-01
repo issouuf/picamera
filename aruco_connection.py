@@ -29,6 +29,7 @@ midl=1080
 minl=1332
 minh=990
 
+taillemarker = 6
 picam2 = Picamera2()
 picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888',"size":(maxh,maxl)}))
 picam2.start()
@@ -94,7 +95,8 @@ while True:
             #cv.putText(corrected_frame, f"ID: {ids[0]}, Cm: {taille_cm:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
 
 
-            rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 6, camera_matrix, dist_coeffs)
+            rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, taillemarker, camera_matrix, dist_coeffs)
+            print(rvec, tvec)
             print("estimation de la pose réussie")
             aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 1)
             print("dessin des axes réussi")
