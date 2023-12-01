@@ -18,8 +18,8 @@ camera_matrix = matrix2kcam
 dist_coeffs = coeff2kcam
 
 marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
-param_markers = aruco.DetectorParameters_create() #sur la tour et le raspberry pi
-#param_markers = aruco.DetectorParameters() #sur le pc portable
+#param_markers = aruco.DetectorParameters_create() #sur la tour et le raspberry pi
+param_markers = aruco.DetectorParameters() #sur le pc portable
 
 
 maxh=2028
@@ -71,42 +71,28 @@ while True:
             if len(marker_centers) > 1:
                 for i in range(len(marker_centers) - 1):
                     cv.line(corrected_frame, marker_centers[i], marker_centers[i + 1], (0, 0, 255), 2)
+                    try:
+                        rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 60, camera_matrix, dist_coeffs)
+                        aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 1)
+                        cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2,
+                                   cv.LINE_AA)
+                        print("Pose estimation successful")
+                    except Exception as e:
+                        print(f"Pose estimation error: {e}")
 
-            # Calculate and display the size of the marker
-            marker_size = np.linalg.norm(topRight - topLeft)
-            font = cv.FONT_HERSHEY_PLAIN
+
+                # Calculate and display the size of the marker
+                marker_size = np.linalg.norm(topRight - topLeft)
+                font = cv.FONT_HERSHEY_PLAIN
             #print(top_right, 'id = ',ids)
             #print(round(marker_size))
             #cv.putText(frame, f"ID: {ids[0]}, Size: {marker_size:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
             
 
-            # taille approximative du tag en cm
-            aruco_perimeters = cv.arcLength(corners, True)
-            pixel_to_centimeters = aruco_perimeters / 60
-
-            rect = cv.minAreaRect(corners)
-            (x, y), (w, h), angle = rect
-
-            object_width =(w / pixel_to_centimeters) 
-            #object_height = (h / pixel_to_centimeters - 2)  #-2 pour la caméra du téléphone samsung 
-            object_height = (h / pixel_to_centimeters)
-            taille_cm = ((object_height + object_width) / 2)  
-            #print(object_width, object_height)
-            #cv.putText(corrected_frame, f"ID: {ids[0]}, Cm: {taille_cm:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
 
 
-            rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, taillemarker, camera_matrix, dist_coeffs)
-            print(rvec, tvec)
-            print("estimation de la pose réussie")
-            aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 1)
-            print("dessin des axes réussi")
-            
-            
-            
-
-
-            cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
-            print("centre tag 2D: ",marker_centers)
+            #cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
+            #print("centre tag 2D: ",marker_centers)
 
 
 
@@ -203,3 +189,19 @@ while True:
 cap.release()
 cv.destroyAllWindows()
  """
+
+
+"""
+            # taille approximative du tag en cm
+            aruco_perimeters = cv.arcLength(corners, True)
+            pixel_to_centimeters = aruco_perimeters / 60
+
+            rect = cv.minAreaRect(corners)
+            (x, y), (w, h), angle = rect
+
+            object_width =(w / pixel_to_centimeters) 
+            #object_height = (h / pixel_to_centimeters - 2)  #-2 pour la caméra du téléphone samsung 
+            object_height = (h / pixel_to_centimeters)
+            taille_cm = ((object_height + object_width) / 2)  
+            #print(object_width, object_height)
+            #cv.putText(corrected_frame, f"ID: {ids[0]}, Cm: {taille_cm:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)"""
