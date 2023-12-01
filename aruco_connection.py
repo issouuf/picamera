@@ -46,8 +46,7 @@ while True:
     corrected_frame = cv.undistort(frame, camera_matrix, dist_coeffs)
     gray_frame = cv.cvtColor(corrected_frame, cv.COLOR_BGR2GRAY)
     
-    #marker_corners, marker_IDs, reject = aruco.detectMarkers(gray_frame, marker_dict, parameters=param_markers)
-    marker_corners, marker_IDs, reject = aruco.detectMarkers(gray_frame, marker_dict, param_markers)
+    marker_corners, marker_IDs, reject = cv.aruco.detectMarkers(gray_frame, marker_dict, parameters=param_markers)
     
     if marker_corners:
         marker_centers = []
@@ -91,7 +90,7 @@ while True:
             #cv.putText(frame, f"ID: {ids[0]}, Size: {marker_size:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
             
             font = cv.FONT_HERSHEY_PLAIN
-            cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
+            #cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
             #print("centre tag 2D: ",marker_centers)
             
 
