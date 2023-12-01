@@ -18,8 +18,8 @@ camera_matrix = matrix2kcam
 dist_coeffs = coeff2kcam
 
 marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
-#param_markers = aruco.DetectorParameters_create() #sur la tour et le raspberry pi
-param_markers = aruco.DetectorParameters() #sur le pc portable
+param_markers = aruco.DetectorParameters_create() #sur la tour et le raspberry pi
+#param_markers = aruco.DetectorParameters() #sur le pc portable
 
 
 maxh=2028
