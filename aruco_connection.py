@@ -17,9 +17,10 @@ coeff2kcam = np.array([[-0.29467958 , 0.08874286 , 0.00187015, -0.00062744, -0.0
 camera_matrix = matrix2kcam
 dist_coeffs = coeff2kcam
 
-marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
+marker_dict = cv.aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
 #param_markers = aruco.DetectorParameters_create() #sur la tour et le raspberry pi
-param_markers = aruco.DetectorParameters() #sur le pc portable
+param_markers = cv.aruco.DetectorParameters() #sur le pc portable
+detector = cv.aruco.ArucoDetector(marker_dict, param_markers)
 
 
 maxh=2028
@@ -46,8 +47,9 @@ while True:
     corrected_frame = cv.undistort(frame, camera_matrix, dist_coeffs)
     gray_frame = cv.cvtColor(corrected_frame, cv.COLOR_BGR2GRAY)
     
-    marker_corners, marker_IDs, reject = cv.aruco.detectMarkers(gray_frame, marker_dict, parameters=param_markers)
-    
+    #marker_corners, marker_IDs, reject = cv.aruco.detectMarkers(gray_frame, marker_dict, parameters=param_markers)
+    marker_corners, marker_IDs, reject = detector.detectMarkers(gray_frame)
+
     if marker_corners:
         marker_centers = []
         for ids, corners in zip(marker_IDs, marker_corners):
