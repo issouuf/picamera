@@ -73,9 +73,9 @@ while True:
                     cv.line(corrected_frame, marker_centers[i], marker_centers[i + 1], (0, 0, 255), 2)
                 
             try:
-                rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 6, camera_matrix, dist_coeffs)
+                rvec, tvec, _ = aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
                 print(rvec, tvec)
-                aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 10)
+                aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 100)
                 cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv.LINE_AA)
                 print("Pose estimation successful")
             except Exception as e:
