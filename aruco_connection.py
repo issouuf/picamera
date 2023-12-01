@@ -18,8 +18,8 @@ camera_matrix = matrix2kcam
 dist_coeffs = coeff2kcam
 
 marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
-#param_markers = aruco.DetectorParameters_create() #sur la tour et le raspberry pi
-param_markers = aruco.DetectorParameters() #sur le pc portable
+param_markers = aruco.DetectorParameters_create() #sur la tour et le raspberry pi
+#param_markers = aruco.DetectorParameters() #sur le pc portable
 
 
 maxh=2028
@@ -72,7 +72,14 @@ while True:
                 for i in range(len(marker_centers) - 1):
                     cv.line(corrected_frame, marker_centers[i], marker_centers[i + 1], (0, 0, 255), 2)
                 
-
+            try:
+                rvec, tvec, _ = aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
+                print(rvec, tvec)
+                aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 100)
+                cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv.LINE_AA)
+                print("Pose estimation successful")
+            except Exception as e:
+                print(f"Pose estimation error: {e}")
 
 
 
@@ -83,9 +90,6 @@ while True:
             #cv.putText(frame, f"ID: {ids[0]}, Size: {marker_size:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
             
             font = cv.FONT_HERSHEY_PLAIN
-            rvec, tvec, _ = aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
-            print(rvec, tvec)
-            aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 100)
             cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
             #print("centre tag 2D: ",marker_centers)
             
