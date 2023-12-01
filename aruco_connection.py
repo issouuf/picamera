@@ -95,7 +95,9 @@ while True:
 
 
             rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 6, camera_matrix, dist_coeffs)
+            print("estimation de la pose réussie")
             aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 1)
+            print("dessin des axes réussi")
             
             
             
@@ -103,6 +105,7 @@ while True:
 
             cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
             print("centre tag 2D: ",marker_centers)
+
 
 
             
