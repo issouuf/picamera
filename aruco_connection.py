@@ -94,8 +94,9 @@ while True:
             #cv.putText(corrected_frame, f"ID: {ids[0]}, Cm: {taille_cm:.2f}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
 
 
-            rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 1, camera_matrix, dist_coeffs)
+            rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 0.06, camera_matrix, dist_coeffs)
             aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 1)
+            
             
             
 
