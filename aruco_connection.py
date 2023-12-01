@@ -71,15 +71,16 @@ while True:
             if len(marker_centers) > 1:
                 for i in range(len(marker_centers) - 1):
                     cv.line(corrected_frame, marker_centers[i], marker_centers[i + 1], (0, 0, 255), 2)
-                    
-                    try:
-                        rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 6, camera_matrix, dist_coeffs)
-                        print(rvec, tvec)
-                        aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 10)
-                        cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2,cv.LINE_AA)
-                        print("Pose estimation successful")
-                    except Exception as e:
-                        print(f"Pose estimation error: {e}")
+                
+            try:
+                rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 6, camera_matrix, dist_coeffs)
+                print(rvec, tvec)
+                aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 10)
+                cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv.LINE_AA)
+                print("Pose estimation successful")
+            except Exception as e:
+                print(f"Pose estimation error: {e}")
+
 
 
                 # Calculate and display the size of the marker
@@ -92,12 +93,13 @@ while True:
 
 
 
-            #cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
+            cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), font, 1, (0, 255, 0), 2, cv.LINE_AA)
             #print("centre tag 2D: ",marker_centers)
+            
 
 
 
-            cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2,cv.LINE_AA)         
+        
     cv.imshow("frame", corrected_frame)
     stop = cv.waitKey(1)
     if stop == ord("s"):
