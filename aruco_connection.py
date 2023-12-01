@@ -18,8 +18,8 @@ camera_matrix = matrix2kcam
 dist_coeffs = coeff2kcam
 
 marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
-param_markers = aruco.DetectorParameters_create() #sur la tour et le raspberry pi
-#param_markers = aruco.DetectorParameters() #sur le pc portable
+#param_markers = aruco.DetectorParameters_create() #sur la tour et le raspberry pi
+param_markers = aruco.DetectorParameters() #sur le pc portable
 
 
 maxh=2028
@@ -46,7 +46,8 @@ while True:
     corrected_frame = cv.undistort(frame, camera_matrix, dist_coeffs)
     gray_frame = cv.cvtColor(corrected_frame, cv.COLOR_BGR2GRAY)
     
-    marker_corners, marker_IDs, reject = aruco.detectMarkers(gray_frame, marker_dict, parameters=param_markers)
+    #marker_corners, marker_IDs, reject = aruco.detectMarkers(gray_frame, marker_dict, parameters=param_markers)
+    marker_corners, marker_IDs, reject = aruco.detectMarkers(gray_frame, marker_dict, param_markers)
     
     if marker_corners:
         marker_centers = []
