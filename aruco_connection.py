@@ -73,6 +73,11 @@ while True:
             if len(marker_centers) > 1:
                 for i in range(len(marker_centers) - 1):
                     cv.line(corrected_frame, marker_centers[i], marker_centers[i + 1], (0, 0, 255), 2)
+                    if ids[0] == 42:
+                        rvec42, tvec42 = cv.aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
+                        Rodrigue(rvec42,tvec42)
+
+
                 
             try:
                 rvec, tvec, _ = cv.aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
