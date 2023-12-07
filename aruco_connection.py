@@ -92,6 +92,24 @@ while True:
 
 
 
+
+            """
+            rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(corners, 0.1, camera_matrix, dist_coeffs)
+
+            if rvecs is not None and tvecs is not None:
+                rvec = rvecs[0]  # Prenez le premier marqueur
+                tvec = tvecs[0]
+
+                # Convertissez les coordonnées du marqueur en position 3D
+                marker_position_camera = -np.dot(np.linalg.inv(rvec), tvec)
+
+                # Envoyez les coordonnées de la position à l'ESP32
+                position_message = f"Position (x, y, z): ({marker_position_camera[0]}, {marker_position_camera[1]}, {marker_position_camera[2]})"
+                print(position_message)
+                """
+
+
+
                 # Calculate and display the size of the marker
                # marker_size = np.linalg.norm(topRight - topLeft)   
             #print(top_right, 'id = ',ids)
