@@ -79,14 +79,16 @@ while True:
                         #rvec42, tvec42 = cv.aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
                         #Rodrigues(rvec42,tvec42)
 
-            
-            rvec,tvec, _ = aruco.estimatePoseSingleMarkers(marker_corners, 0.06, camera_matrix, dist_coeffs)
-            (rvec-tvec).any()
-            aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs,rvec,tvec, 0.1)
+            rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(marker_corners, 0.06, camera_matrix, dist_coeffs)
+
+            if rvecs is not None and tvecs is not None:
+                for rvec, tvec in zip(rvecs, tvecs):
+                    cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 10)
             
             for i in range(rvec.shape[0]):
-                aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.1)
+                image = cv.drawFramesAxes(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.1)
                 aruco.drawDetectedMarkers(corrected_frame,corners)
+            
 
 
                 
