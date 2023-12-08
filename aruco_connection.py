@@ -39,7 +39,8 @@ picam2.start()
 
 # Données de départ du tag 42
 mat42 = np.eye(3, 3, dtype=np.float64)
-
+rvecs42 = np.zeros((3, 1), dtype=np.float64)
+tvecs42 = np.zeros((3, 1), dtype=np.float64)
 
 #cap = cv.VideoCapture(1)
 
@@ -89,11 +90,9 @@ while True:
             for i in range(len(marker_IDs)):
                 cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvecs[i], tvecs[i], 0.03)
 
-                rvecs42 = rvecs[i]
-                tvecs42 = tvecs[i]
                 if marker_IDs[i] == 42:
-                    #rvecs42 = rvecs[i]
-                    #tvecs42 = tvecs[i]
+                    rvecs42 = rvecs[i]
+                    tvecs42 = tvecs[i]
                     #mat42 = cv.Rodrigues(rvecs42)#ok
                     mat42, _ = cv.Rodrigues(rvecs42)
                 else: 
