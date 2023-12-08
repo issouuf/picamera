@@ -98,7 +98,7 @@ while True:
                 else: 
                     mat = np.eye(3,3 , dtype=np.float64)
                     mat, _ = cv.Rodrigues(rvecs[i])
-                    tdest = np.dot(mat42.T, (tvecs[i] - tvecs42).T).T
+                    tdest = np.dot(mat42, (tvecs[i] - tvecs42).T).T
                     #tdest = np.dot((mat42, tvecs[i]) - np.dot(mat42, tvecs42).T)
                     matDest = np.dot(mat42, mat)
                     rdest, _ = cv.Rodrigues(matDest)
