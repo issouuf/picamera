@@ -84,7 +84,7 @@ while True:
             try:
                 rvec, tvec, _ = cv.aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
                 print(rvec, tvec)
-                cv.aruco.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 6,10)
+                image = cv.aruco.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 6,10)
                 Rodrigues(rvec,tvec)
                 print(Rodrigues(rvec,tvec))
                 #cv.aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 100,10)
@@ -128,6 +128,7 @@ while True:
 
         
     cv.imshow("frame", corrected_frame)
+    cv.imshow("frame2", image)
     stop = cv.waitKey(1)
     if stop == ord("s"):
         break
