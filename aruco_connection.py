@@ -79,19 +79,28 @@ while True:
                         #rvec42, tvec42 = cv.aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
                         #Rodrigues(rvec42,tvec42)
 
+            
+            rvec,tvec, _ = aruco.estimatePoseSingleMarkers(corners, 6, camera_matrix, dist_coeffs)
+            (rvec-tvec).any()
+            aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs,rvec,tvec, 0.1)
+            
+            for i in range(rvec.shape[0]):
+                aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.1)
+                aruco.drawDetectedMarkers(corrected_frame,corners)
+
 
                 
-            try:
-                rvec, tvec, _ = cv.aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
-                print(rvec, tvec)
-                cv.aruco.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 6,10)
-                Rodrigues(rvec,tvec)
-                print(Rodrigues(rvec,tvec))
-                #cv.aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 100,10)
-                cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv.LINE_AA)
-                print("Pose estimation successful")
-            except Exception as e:
-                print(f"Pose estimation error: {e}")
+            #try:
+                #rvec, tvec, _ = cv.aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
+                #print(rvec, tvec)
+                #cv.aruco.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 6,10)
+                #Rodrigues(rvec,tvec)
+                #print(Rodrigues(rvec,tvec))
+               # image = cv.aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 6,10)
+              #  cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv.LINE_AA)
+             #   print("Pose estimation successful")
+            #except Exception as e:
+               # print(f"Pose estimation error: {e}")
 
 
 
