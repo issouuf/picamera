@@ -3,6 +3,7 @@ from cv2 import aruco
 import numpy as np
 import socket
 from picamera2 import Picamera2
+from cv2 import Rodrigues 
 
 matrix2kcam = np.array([[878.95170188, 0, 993.89589179],
                         [0           ,876.72068118, 775.53981922],
@@ -84,6 +85,8 @@ while True:
                 rvec, tvec, _ = cv.aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
                 print(rvec, tvec)
                 cv.aruco.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 6,10)
+                Rodrigues(rvec,tvec)
+                print(Rodrigues(rvec,tvec))
                 #cv.aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 100,10)
                 cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv.LINE_AA)
                 print("Pose estimation successful")
