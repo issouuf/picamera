@@ -5,8 +5,8 @@ import numpy as np
 
 
 marker_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_50)
-#param_markers = aruco.DetectorParameters()
-param_markers = aruco.DetectorParameters_create()
+param_markers = aruco.DetectorParameters()
+#param_markers = aruco.DetectorParameters_create()
 
 
 matrix2kcam = np.array([[878.95170188, 0, 993.89589179],
