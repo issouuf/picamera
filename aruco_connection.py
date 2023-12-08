@@ -79,52 +79,35 @@ while True:
                         #rvec42, tvec42 = cv.aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
                         #Rodrigues(rvec42,tvec42)
 
-            rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(marker_corners, 0.06, camera_matrix, dist_coeffs)
+            rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(marker_corners, 0.06, camera_matrix, dist_coeffs) # OK
 
+            for i in range(len(marker_IDs)):
+                cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvecs[i], tvecs[i], 0.03)
+
+                if marker_IDs[i] == 42:
+                    rvecs42 = rvecs[i]
+                    tvecs42 = tvecs[i]
+                    mat42 = cv.Rodrigues(rvecs42)
+                else: 
+                    mat = np.eye(3,3 , dtype=np.float64)
+                    mat, _ = cv.Rodrigues(rvecs[i])
+                    tdest = np.dot(mat42, (tvecs[i] - tvecs42))
+                    matDest = np.dot(mat42, mat)
+                    rdest, _ = cv.Rodrigues(matDest)
+                    print(f"\rt{marker_IDs[i]}/42: {100.0 * tdest.T}  r{marker_IDs[i]}/42: {np.degrees(rdest)}", end='')
+
+            
+            
+            #OK
+            """
             if rvecs is not None and tvecs is not None:
                 for rvec, tvec in zip(rvecs, tvecs):
                     cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 0.03)
                     Rodrigues(rvec,tvec)
                     print(Rodrigues(rvec,tvec))
             
-            #for i in range(rvec.shape[0]):
-             #   cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.03)
             cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv.LINE_AA)
-
-
-                
-            #try:
-                #rvec, tvec, _ = cv.aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
-                #print(rvec, tvec)
-                #cv.aruco.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 6,10)
-                #Rodrigues(rvec,tvec)
-                #print(Rodrigues(rvec,tvec))
-               # image = cv.aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 6,10)
-              #  cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv.LINE_AA)
-             #   print("Pose estimation successful")
-            #except Exception as e:
-               # print(f"Pose estimation error: {e}")
-
-
-
-
             """
-            rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(corners, 0.1, camera_matrix, dist_coeffs)
-
-            if rvecs is not None and tvecs is not None:
-                rvec = rvecs[0]  # Prenez le premier marqueur
-                tvec = tvecs[0]
-
-                # Convertissez les coordonnées du marqueur en position 3D
-                marker_position_camera = -np.dot(np.linalg.inv(rvec), tvec)
-
-                # Envoyez les coordonnées de la position à l'ESP32
-                position_message = f"Position (x, y, z): ({marker_position_camera[0]}, {marker_position_camera[1]}, {marker_position_camera[2]})"
-                print(position_message)
-                """
-
-
-
                 # Calculate and display the size of the marker
                # marker_size = np.linalg.norm(topRight - topLeft)   
             #print(top_right, 'id = ',ids)
