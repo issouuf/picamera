@@ -37,6 +37,10 @@ picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888',
 picam2.start()
 
 
+# Données de départ du tag 42
+mat42 = np.eye(3, 3, dtype=np.float64)
+
+
 #cap = cv.VideoCapture(1)
 
 while True:
