@@ -83,10 +83,8 @@ while True:
                         #rvec42, tvec42 = cv.aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
                         #Rodrigues(rvec42,tvec42)
 
-            #rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(marker_corners, 0.06, camera_matrix, dist_coeffs) # OK
-            rvecs = []  # Liste pour stocker les vecteurs rvecs
-            tvecs = []  # Liste pour stocker les vecteurs tvecs
-            aruco.estimatePoseSingleMarkers(marker_corners, 0.06, camera_matrix, dist_coeffs, rvecs, tvecs)
+            rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(marker_corners, 0.06, camera_matrix, dist_coeffs) # OK
+            
 
             for i in range(len(marker_IDs)):
                 cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvecs[i], tvecs[i], 0.03)
