@@ -86,7 +86,7 @@ while True:
                     cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 0.1)
             
             for i in range(rvec.shape[0]):
-                cv.drawFramesAxes(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.1)
+                cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.1)
                 aruco.drawDetectedMarkers(corrected_frame,corners)
             
 
