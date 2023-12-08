@@ -1,6 +1,7 @@
 import cv2 as cv
 from cv2 import aruco
 import numpy as np
+from picamera2 import Picamera2
 
 
 
@@ -18,10 +19,17 @@ dist_coeffs = coeff2kcam
 
 cap = cv.VideoCapture(0)
 
+
+
+picam2 = Picamera2()
+picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888',"size":(maxh,maxl)}))
+picam2.start()
+
 while True:
-    ret, frame = cap.read()
-    if not ret:
-        break
+    #ret, frame = cap.read()
+    frame = picam2.capture_array()
+    #if not ret:
+    #    break
     gray_frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     marker_corners, marker_IDs, reject = aruco.detectMarkers(gray_frame, marker_dict, parameters=param_markers)
     if marker_corners:
@@ -53,5 +61,6 @@ while True:
     if stop == ord("s"):
         break
 
-cap.release()
+#cap.release()
+picam2.stop()
 cv.destroyAllWindows()
