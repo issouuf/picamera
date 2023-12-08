@@ -89,7 +89,7 @@ while True:
 
             for i in range(len(marker_IDs)):
                 cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvecs[i], tvecs[i], 0.03)
-
+                print (f"id {marker_IDs}", rvecs[i], tvecs[i])
                 if marker_IDs[i] == 42:
                     rvecs42 = rvecs[i]
                     tvecs42 = tvecs[i]
