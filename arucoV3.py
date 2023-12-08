@@ -17,8 +17,14 @@ coeff2kcam = np.array([[-0.29467958 , 0.08874286 , 0.00187015, -0.00062744, -0.0
 camera_matrix = matrix2kcam
 dist_coeffs = coeff2kcam
 
-cap = cv.VideoCapture(0)
+#cap = cv.VideoCapture(0)
 
+maxh=2028
+maxl=1520
+midh=2028
+midl=1080
+minl=1332
+minh=990
 
 
 picam2 = Picamera2()
