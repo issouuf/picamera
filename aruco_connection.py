@@ -94,11 +94,15 @@ while True:
                 if marker_IDs[i] == 42:
                     #rvecs42 = rvecs[i]
                     #tvecs42 = tvecs[i]
-                    mat42 = cv.Rodrigues(rvecs42)
+                    mat42 = cv.Rodrigues(rvecs42)#ok
+                    rvec42, _ = cv.Rodrigues(rvecs42)
+                    mat42 = np.array(rvec42).reshape((3, 1))
                 else: 
                     mat = np.eye(3,3 , dtype=np.float64)
+                    rvec, _ = cv.Rodrigues(rvecs[i])
+                    tdest = np.dot(mat42, (tvecs[i] - tvecs42).reshape(-1, 1)).flatten()
                     mat, _ = cv.Rodrigues(rvecs[i])
-                    tdest = np.dot(mat42, (tvecs[i] - tvecs42).T).T
+                    #tdest = np.dot(mat42, (tvecs[i] - tvecs42).T).T
                     #tdest = np.dot((mat42, tvecs[i]) - np.dot(mat42, tvecs42).T)
                     matDest = np.dot(mat42, mat)
                     rdest, _ = cv.Rodrigues(matDest)
