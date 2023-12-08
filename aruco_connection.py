@@ -99,8 +99,7 @@ while True:
                     mat = np.eye(3,3 , dtype=np.float64)
                     mat, _ = cv.Rodrigues(rvecs[i])
                     #tdest = np.dot(mat42, (tvecs[i] - tvecs42).T)
-                    #tdest = np.dot(mat42, (tvecs[i] - tvecs42).reshape(-1, 1)).flatten()
-                    tdest = mat42.dot(tvecs[i] - tvecs42).T
+                    tdest = np.dot(mat42, (tvecs[i] - tvecs42).reshape(-1, 1)).flatten()
                     matDest = np.dot(mat42, mat)
                     rdest, _ = cv.Rodrigues(matDest)
                     print(f"\rt{marker_IDs[i]}/42: {100.0 * tdest.T}  r{marker_IDs[i]}/42: {np.degrees(rdest)}", end='')   
