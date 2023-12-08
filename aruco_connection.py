@@ -83,11 +83,11 @@ while True:
 
             if rvecs is not None and tvecs is not None:
                 for rvec, tvec in zip(rvecs, tvecs):
-                    cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 10)
+                    cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 0.1)
             
-            #for i in range(rvec.shape[0]):
-             #   image = cv.drawFramesAxes(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.1)
-              #  aruco.drawDetectedMarkers(corrected_frame,corners)
+            for i in range(rvec.shape[0]):
+                cv.drawFramesAxes(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.1)
+                aruco.drawDetectedMarkers(corrected_frame,corners)
             
 
 
