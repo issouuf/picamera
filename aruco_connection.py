@@ -85,9 +85,9 @@ while True:
                 for rvec, tvec in zip(rvecs, tvecs):
                     cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 10)
             
-            for i in range(rvec.shape[0]):
-                image = cv.drawFramesAxes(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.1)
-                aruco.drawDetectedMarkers(corrected_frame,corners)
+            #for i in range(rvec.shape[0]):
+             #   image = cv.drawFramesAxes(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.1)
+              #  aruco.drawDetectedMarkers(corrected_frame,corners)
             
 
 
