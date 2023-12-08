@@ -80,7 +80,7 @@ while True:
                         #Rodrigues(rvec42,tvec42)
 
             
-            rvec,tvec, _ = aruco.estimatePoseSingleMarkers(corners, 6, camera_matrix, dist_coeffs)
+            rvec,tvec, _ = aruco.estimatePoseSingleMarkers(corners, 0.6, camera_matrix, dist_coeffs)
             (rvec-tvec).any()
             aruco.drawAxis(corrected_frame, camera_matrix, dist_coeffs,rvec,tvec, 0.1)
             
