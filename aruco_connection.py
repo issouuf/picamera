@@ -84,11 +84,13 @@ while True:
             if rvecs is not None and tvecs is not None:
                 for rvec, tvec in zip(rvecs, tvecs):
                     cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvec, tvec, 0.1)
+                    Rodrigues(rvec,tvec)
+                    print(Rodrigues(rvec,tvec))
             
-            for i in range(rvec.shape[0]):
-                cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.1)
-                aruco.drawDetectedMarkers(corrected_frame,corners)
-            
+            #for i in range(rvec.shape[0]):
+             #   cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.1)
+             #   aruco.drawDetectedMarkers(corrected_frame,corners)
+            cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv.LINE_AA)
 
 
                 
