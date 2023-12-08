@@ -94,7 +94,8 @@ while True:
                 if marker_IDs[i] == 42:
                     #rvecs42 = rvecs[i]
                     #tvecs42 = tvecs[i]
-                    mat42 = cv.Rodrigues(rvecs42)#ok
+                    #mat42 = cv.Rodrigues(rvecs42)#ok
+                    mat42, _ = cv.Rodrigues(rvecs42)
                 else: 
                     mat = np.eye(3,3 , dtype=np.float64)
                     mat, _ = cv.Rodrigues(rvecs[i])
