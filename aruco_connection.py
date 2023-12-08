@@ -88,8 +88,7 @@ while True:
                     print(Rodrigues(rvec,tvec))
             
             #for i in range(rvec.shape[0]):
-             #   cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.1)
-             #   aruco.drawDetectedMarkers(corrected_frame,corners)
+             #   cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs,rvec[i, :, :],tvec[i, :, :], 0.03)
             cv.putText(corrected_frame, f"ID: {ids[0]}", tuple(topRight), cv.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv.LINE_AA)
 
 
