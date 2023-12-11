@@ -86,8 +86,8 @@ while True:
 
             rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(marker_corners, 0.06, camera_matrix, dist_coeffs) # OK
             
-
-            for i in range(len(marker_IDs)):
+            #OK
+           ''' for i in range(len(marker_IDs)):
                 cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvecs[i], tvecs[i], 0.03)
                 print (f"id {marker_IDs}", rvecs[i], tvecs[i])
                 if marker_IDs[i] == 42:
@@ -104,7 +104,31 @@ while True:
                     rdest, _ = cv.Rodrigues(matDest)
                     #print(f"\rt{marker_IDs[i]}/42: {100.0 * tdest.T}  r{marker_IDs[i]}/42: {np.degrees(rdest)}", end='')
                     print(f"t{marker_IDs[i]}/42: {100.0 * tdest.T}")
-                    print(f"r{marker_IDs[i]}/42: {np.degrees(rdest)}") 
+                    print(f"r{marker_IDs[i]}/42: {np.degrees(rdest)}") '''
+
+
+
+
+
+                relative_positions = {}
+                relative_rotations = {}
+
+                for i in range(len(marker_IDs)):
+                    cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvecs[i], tvecs[i], 0.03)
+                    print (f"id {marker_IDs[i]}", rvecs[i], tvecs[i])
+                    if marker_IDs[i] == 42:
+                        rvecs42 = rvecs[i]
+                        tvecs42 = tvecs[i]
+                        mat42, _ = cv.Rodrigues(rvecs42)
+                    else: 
+                        mat, _ = cv.Rodrigues(rvecs[i])
+                        relative_position = np.dot(mat42.T, (tvecs[i].T - tvecs42.T))
+                        relative_rotation = np.dot(mat42.T, mat)
+                        rdest, _ = cv.Rodrigues(relative_rotation)
+                        print(f"t{marker_IDs[i]}/42: {relative_position.T * 100}")  # Multiply by 100 to convert from meters to cm
+                        print(f"r{marker_IDs[i]}/42: {np.degrees(rdest)}") 
+                        relative_positions[marker_IDs[i]] = relative_position
+                        relative_rotations[marker_IDs[i]] = rdest
 
             
             
