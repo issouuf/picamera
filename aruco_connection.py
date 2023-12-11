@@ -31,7 +31,7 @@ midl=1080
 minl=1332
 minh=990
 
-taillemarker = 6
+taillemarker = 0.06 # en mètre
 picam2 = Picamera2()
 picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888',"size":(maxh,maxl)}))
 picam2.start()
@@ -84,7 +84,7 @@ while True:
                         #rvec42, tvec42 = cv.aruco.estimatePoseSingleMarkers(marker_corners, 6, camera_matrix, dist_coeffs)
                         #Rodrigues(rvec42,tvec42)
 
-            rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(marker_corners, 0.06, camera_matrix, dist_coeffs) # OK
+            rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(marker_corners,taillemarker, camera_matrix, dist_coeffs) # OK
             
             #OK
            ''' for i in range(len(marker_IDs)):
