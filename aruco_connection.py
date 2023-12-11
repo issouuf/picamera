@@ -125,7 +125,7 @@ while True:
                         relative_position = np.dot(mat42.T, (tvecs[i].T - tvecs42.T))
                         relative_rotation = np.dot(mat42.T, mat)
                         rdest, _ = cv.Rodrigues(relative_rotation)
-                        print(f"t{marker_IDs[i]}/42: {relative_position.T * 100}")  # Multiply by 100 to convert from meters to cm
+                        print(f"t{marker_IDs[i]}/42: {relative_position.T * 100}")  # si la valeur est fausse, multiplier par 10 au lieu de 100
                         print(f"r{marker_IDs[i]}/42: {np.degrees(rdest)}") 
                         relative_positions[marker_IDs[i]] = relative_position
                         relative_rotations[marker_IDs[i]] = rdest
