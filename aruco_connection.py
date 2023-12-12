@@ -87,7 +87,8 @@ while True:
             rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(marker_corners,taillemarker, camera_matrix, dist_coeffs) # OK
             
             #OK
-           ''' for i in range(len(marker_IDs)):
+            '''
+            for i in range(len(marker_IDs)):
                 cv.drawFrameAxes(corrected_frame, camera_matrix, dist_coeffs, rvecs[i], tvecs[i], 0.03)
                 print (f"id {marker_IDs}", rvecs[i], tvecs[i])
                 if marker_IDs[i] == 42:
