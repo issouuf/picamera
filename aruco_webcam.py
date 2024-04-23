@@ -84,18 +84,27 @@ cap = cv.VideoCapture(1)
 
 
 min_width = 50
-min_height = 5
-0
+min_height = 50
 
 while True:
     #cap = cv.VideoCapture(talbe_path)
-    ret, frame = cap.read()
-    # frame = cv.imread('table_jeu.png')
-    if not ret:
-        break
+    #ret, frame = cap.read()
+    frame = cv.imread('table_jeu.png')
+    # if not ret:
+    #     break
 
     # corrected_frame = cv.undistort(frame, camera_matrix, dist_coeffs)
     gray_frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    #convertir l'image en espace de couleur hsv
+    hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
+
+    #définir la plage de couleur verte 
+    lower_green = np.array([40, 40, 40])
+    upper_green = np.array([70, 255, 255])
+
+    #créer un masque pour filtrer la couleur verte
+    mask = cv.inRange(hsv, lower_green, upper_green)
+
 
     # marker_corners, marker_IDs, reject = cv.aruco.detectMarkers(gray_frame, marker_dict, parameters=param_markers)
     marker_corners, marker_IDs, reject = detector.detectMarkers(gray_frame)
@@ -109,11 +118,12 @@ while True:
     rvecs, tvecs, _ = aruco.estimatePoseSingleMarkers(
     marker_corners, taillemarker, camera_matrix, dist_coeffs)  # OK
 
-
-    #je veux afficher le contour de tous les objets présent dans l'image
  
     ret,thresh = cv.threshold(gray_frame,127,255,0)
-    contours, hierarchy = cv.findContours(thresh, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+
+    # contours, hierarchy = cv.findContours(thresh, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv.findContours(mask, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
+
     #trier les contours pour avoir le plus grand 
     contours = sorted(contours, key=cv.contourArea, reverse=True)
     countour_table = contours[0]
